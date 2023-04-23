@@ -1,12 +1,13 @@
 const Staff = require("../models/staff.model.js");
 const Complaint = require("../models/complaints.model.js");
 const Hall = require("../models/hall.model.js");
+const Student = require("../models/student.model.js");
 
 module.exports.register = async (req, res) => {
 	try {
 		const { name, phone, password } = req.body;
 		const halls = await Hall.find();
-		const rand = Math.floor(Math.random() * 1 + 1);
+		const rand = Math.floor(Math.random() * 2 + 1);
 		const hall = halls[rand];
 		const uid = "SS" + Math.floor(Math.random() * 9000 + 1000).toString();
 		const staff = await Staff.create({
@@ -27,7 +28,7 @@ module.exports.wardenRegister = async (req, res) => {
 	try {
 		const { name, phone, password } = req.body;
 		const halls = await Hall.find();
-		const rand = Math.floor(Math.random() * 1 + 1);
+		const rand = Math.floor(Math.random() * 2 + 1);
 		const hall = halls[rand];
 		const uid = "SW" + Math.floor(Math.random() * 9000 + 1000).toString();
 		const staff = await Staff.create({
@@ -48,7 +49,10 @@ module.exports.wardenRegister = async (req, res) => {
 module.exports.login = async (req, res) => {
 	try {
 		const { uid, password } = req.body;
-		const staff = await Staff.findOne({ uid: uid }).populate({ path: "hall", populate: { path: "complaints" } });
+		const staff = await Staff.findOne({ uid: uid }).populate({
+			path: "hall",
+			populate: { path: "complaints", populate: "studentId" },
+		});
 		if (staff) {
 			if (staff.password !== password) {
 				return res.json({ message: "password is wrong", status: false });
