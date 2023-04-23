@@ -62,6 +62,7 @@ module.exports.makeComplaint = async (req, res) => {
 			body,
 			hall,
 			studentId,
+			studentName: student.name,
 		});
 
 		if (complaint) {

@@ -9,6 +9,9 @@ const complaintSchema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Student",
 		},
+		studentName: {
+			type: String,
+		},
 		hall: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Hall",
