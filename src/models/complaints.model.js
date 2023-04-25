@@ -16,6 +16,9 @@ const complaintSchema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Hall",
 		},
+		actionTaken: {
+			type: String,
+		}
 	},
 	{ timestamps: true }
 );

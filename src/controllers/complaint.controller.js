@@ -17,6 +17,30 @@ module.exports.allcomplaints = async (req, res) => {
 	}
 };
 
+module.exports.actionTaken = async (req,res) => {
+	try{
+		const {complaintId} = req.params
+		const body = req.body.body;
+		const complaint = await Complaint.findById(complaintId)
+		if (!complaint) {
+			res.json({
+				message: "No such complaint exists",
+				status: true,
+			});
+		} else {
+			complaint.actionTaken = body
+			complaint.save()
+			await Hall.findByIdAndUpdate(complaint.hall, {$pull: { complaints: complaintId },});
+			res.json({
+				message: "complained solved, action taken report made",
+				status: true,})
+		}
+
+	}catch(err){
+		res.json({message: "unable to make action taken report", status:true})
+	}
+}
+
 module.exports.del = async (req, res) => {
 	try {
 		const { complaintId } = req.params;
