@@ -9,7 +9,6 @@ module.exports.register = async (req, res) => {
 		const halls = await Hall.find();
 		const rand = Math.floor(Math.random() * 2);
 		const hall = halls[rand];
-		console.log(hall);
 		const sum = hall.rooms.reduce((partialSum, i) => partialSum + i, 0);
 		hall.rooms[sum] = 1;
 		hall.save();
