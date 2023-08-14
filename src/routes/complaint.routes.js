@@ -5,7 +5,7 @@ const {
   actionTaken
 } = require("../controllers/complaint.controller.js");
 
-  router.get("/allcomplaints", allcomplaints);
-  router.delete("/delete/:complaintId", del);
-  router.post("/actiontaken/:complaintId", actionTaken)
-  module.exports = router;
+router.get("/allcomplaints", allcomplaints);
+router.delete("/delete/:complaintId", del);
+router.post("/actiontaken/:complaintId", actionTaken)
+module.exports = router;
